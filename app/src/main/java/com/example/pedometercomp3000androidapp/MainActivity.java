@@ -134,13 +134,13 @@ public class MainActivity extends AppCompatActivity {
         String steps = stepText.getText().toString();
         int num1 = Integer.parseInt(steps);
 
-        String weight = stepText.getText().toString();
+        String weight = weightText.getText().toString();
         int num2 = Integer.parseInt(weight);
 
-        String stepGoals = stepText.getText().toString();
+        String stepGoals = goalStepText.getText().toString();
         int num3 = Integer.parseInt(stepGoals);
 
-        String weightGoals = stepText.getText().toString();
+        String weightGoals = goalWeightText.getText().toString();
         int num4 = Integer.parseInt(weightGoals);
 
 
@@ -152,18 +152,81 @@ public class MainActivity extends AppCompatActivity {
         executorService.execute(() -> {
             try {
                 con = connectionClass.CONN();
-
-                String sqlUpdate = "update steps set Step_Day_02 ="+num1;
-                Statement st = (Statement) con.createStatement();
-                boolean rs = st.execute(sqlUpdate);
-
-
+                String sqlUpdate1 = "update steps set Step_Day_02 ="+num1;
+                Statement st1 = (Statement) con.createStatement();
+                boolean rs1 = st1.execute(sqlUpdate1);
 
             }catch(Exception e) {
                 Log.e("error", e.getMessage());
-
             }
+            runOnUiThread(()->{
+                try{
+                    Thread.sleep(1000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
 
+            });
+        });
+        ExecutorService executorService2 = Executors.newSingleThreadExecutor();
+        executorService2.execute(() -> {
+            try {
+                con = connectionClass.CONN();
+                String sqlUpdate2 = "update weight set Weight_Day_02 ="+num2;
+                Statement st2 = (Statement) con.createStatement();
+                boolean rs2 = st2.execute(sqlUpdate2);
+
+            }catch(Exception e) {
+                Log.e("error", e.getMessage());
+            }
+            runOnUiThread(()->{
+                try{
+                    Thread.sleep(1000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+
+            });
+        });
+        ExecutorService executorService3 = Executors.newSingleThreadExecutor();
+        executorService3.execute(() -> {
+            try {
+                con = connectionClass.CONN();
+                String sqlUpdate3 = "update target set StepTarget ="+num3;
+                Statement st3 = (Statement) con.createStatement();
+                boolean rs3 = st3.execute(sqlUpdate3);
+
+            }catch(Exception e) {
+                Log.e("error", e.getMessage());
+            }
+            runOnUiThread(()->{
+                try{
+                    Thread.sleep(1000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+
+            });
+        });
+        ExecutorService executorService4 = Executors.newSingleThreadExecutor();
+        executorService4.execute(() -> {
+            try {
+                con = connectionClass.CONN();
+                String sqlUpdate4 = "update target set WeightTarget ="+num4;
+                Statement st4 = (Statement) con.createStatement();
+                boolean rs4 = st4.execute(sqlUpdate4);
+
+            }catch(Exception e) {
+                Log.e("error", e.getMessage());
+            }
+            runOnUiThread(()->{
+                try{
+                    Thread.sleep(1000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+
+            });
         });
 
 
