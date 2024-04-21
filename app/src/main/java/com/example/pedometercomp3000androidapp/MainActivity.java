@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -52,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
 //        time.setText(currentDateAndTime);
 
+
+        Calendar cal = Calendar.getInstance();
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        TextView txtListDay = findViewById(R.id.textView3);
+        txtListDay.setText("Day of the month: "+day);
 
 
 
@@ -125,7 +132,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnClick(View view) {
 
-        int day = 10;
+        Calendar cal = Calendar.getInstance();
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+
         TextView stepText = findViewById(R.id.steptxt);
         TextView weightText = findViewById(R.id.weighttxt);
         TextView goalStepText = findViewById(R.id.goalSteptxt);
@@ -152,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         executorService.execute(() -> {
             try {
                 con = connectionClass.CONN();
-                String sqlUpdate1 = "update steps set Step_Day_02 ="+num1;
+                String sqlUpdate1 = "update steps set Step_Day_"+day+"="+num1;
                 Statement st1 = (Statement) con.createStatement();
                 boolean rs1 = st1.execute(sqlUpdate1);
 
@@ -172,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         executorService2.execute(() -> {
             try {
                 con = connectionClass.CONN();
-                String sqlUpdate2 = "update weight set Weight_Day_02 ="+num2;
+                String sqlUpdate2 = "update weight set Weight_Day_"+day+"="+num2;
                 Statement st2 = (Statement) con.createStatement();
                 boolean rs2 = st2.execute(sqlUpdate2);
 
