@@ -126,14 +126,34 @@ public class MainActivity extends AppCompatActivity {
     public void btnClick(View view) {
 
         int day = 10;
+        TextView stepText = findViewById(R.id.steptxt);
+        TextView weightText = findViewById(R.id.weighttxt);
+        TextView goalStepText = findViewById(R.id.goalSteptxt);
+        TextView goalWeightText = findViewById(R.id.goalWeighttxt);
+
+        String steps = stepText.getText().toString();
+        int num1 = Integer.parseInt(steps);
+
+        String weight = stepText.getText().toString();
+        int num2 = Integer.parseInt(weight);
+
+        String stepGoals = stepText.getText().toString();
+        int num3 = Integer.parseInt(stepGoals);
+
+        String weightGoals = stepText.getText().toString();
+        int num4 = Integer.parseInt(weightGoals);
+
+
+
         //this is where the update function will be used
 
-//this is where the update function will be used
-        ExecutorService executorService2 = Executors.newSingleThreadExecutor();
-        executorService2.execute(() -> {
+        //this is where the update function will be used
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
             try {
                 con = connectionClass.CONN();
-                String sqlUpdate = "update steps set Step_Day_01 =2000";
+
+                String sqlUpdate = "update steps set Step_Day_02 ="+num1;
                 Statement st = (Statement) con.createStatement();
                 boolean rs = st.execute(sqlUpdate);
 
@@ -143,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("error", e.getMessage());
 
             }
-
 
         });
 
