@@ -25,10 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         connectionClass = new ConnectionClass();
         connect();
-    }
-
-    public void btnClick(View view) {
-
+        //thisnwill get the step data and then display it
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             try {
@@ -36,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 String query = "SELECT * FROM steps";
                 PreparedStatement stmt = con.prepareStatement(query);
                 ResultSet rs =stmt.executeQuery();
-                StringBuilder bStr =new StringBuilder("Steps List\n");
+                StringBuilder bStr =new StringBuilder("Today's Steps: ");
                 while(rs.next()){
                     bStr.append(rs.getString("Step_Day_01")).append("\n");
                 }
@@ -58,6 +55,44 @@ public class MainActivity extends AppCompatActivity {
             });
 
         });
+
+        //now load weight data
+        ExecutorService executorService2 = Executors.newSingleThreadExecutor();
+        executorService2.execute(() -> {
+            try {
+                con= connectionClass.CONN();
+                String query = "SELECT * FROM weight";
+                PreparedStatement stmt = con.prepareStatement(query);
+                ResultSet rs =stmt.executeQuery();
+                StringBuilder bStr =new StringBuilder("Today's Weight: ");
+                while(rs.next()){
+                    bStr.append(rs.getString("Weight_Day_01")).append("\n");
+                }
+                name = bStr.toString();
+            }catch (SQLException e){
+                throw new RuntimeException(e);
+            }
+
+            runOnUiThread(()->{
+                try{
+                    Thread.sleep(1000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+
+                TextView txtList = findViewById(R.id.textView2);
+                txtList.setText(name);
+
+            });
+
+        });
+
+
+    }
+
+    public void btnClick(View view) {
+
+
 
 
     }
